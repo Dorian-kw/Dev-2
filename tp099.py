@@ -127,11 +127,11 @@ class FractionTestCase(unittest.TestCase):
 
     # Test d'une comparaison entre fractions (en utilisant la conversion en float)
     def test_comparison(self):
-        self.assertTrue(float(Fraction(1, 2)) > float(Fraction(1, 3)))  # Test supérieur
-        self.assertTrue(float(Fraction(1, 3)) < float(Fraction(1, 2)))  # Test inférieur
-        self.assertTrue(float(Fraction(1, 2)) >= float(Fraction(1, 2)))  # Test supérieur ou égal
-        self.assertTrue(float(Fraction(1, 2)) <= float(Fraction(2, 4)))  # Test inférieur ou égal
-        self.assertTrue(float(Fraction(1, 2)) == float(Fraction(2, 4)))  # Test égalité
+        self.assertTrue(float(Fraction(1, 2)) > float(Fraction(1, 3)))  
+        self.assertTrue(float(Fraction(1, 3)) < float(Fraction(1, 2)))  
+        self.assertTrue(float(Fraction(1, 2)) >= float(Fraction(1, 2))) 
+        self.assertTrue(float(Fraction(1, 2)) <= float(Fraction(2, 4)))  
+        self.assertTrue(float(Fraction(1, 2)) == float(Fraction(2, 4)))  
 
 
 if __name__ == "__main__":
