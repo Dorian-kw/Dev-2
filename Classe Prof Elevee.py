@@ -1,48 +1,48 @@
 # Classe Adresse
 class Adresse:
     def __init__(self, rue, code_postal, ville):
-        self.rue = rue
-        self.code_postal = code_postal
-        self.ville = ville
+        self.__rue = rue
+        self.__code_postal = code_postal
+        self.__ville = ville
 
 # Classe Personne
 class Personne:
     def __init__(self, nom, prenom, etat_civil, coordonnees):
-        self.nom = nom
-        self.prenom = prenom
-        self.etat_civil = etat_civil
-        self.coordonnees = coordonnees
+        self.__nom = nom
+        self.__prenom = prenom
+        self.__etat_civil = etat_civil
+        self.__coordonnees = coordonnees
 
 # Classe Professeur héritant de Personne
 class Professeur(Personne):
     def __init__(self, nom, prenom, etat_civil, coordonnees, matiere_enseignee, annees_experience):
         super().__init__(nom, prenom, etat_civil, coordonnees)
-        self.matiere_enseignee = matiere_enseignee
-        self.annees_experience = annees_experience
+        self.__matiere_enseignee = matiere_enseignee
+        self.__annees_experience = annees_experience
 
     def enseigner(self):
-        print(f"{self.nom} enseigne {self.matiere_enseignee}.")
+        print(f"{self.__nom} enseigne {self.__matiere_enseignee}.")
 
 # Classe Eleve héritant de Personne
 class Eleve(Personne):
     def __init__(self, nom, prenom, etat_civil, coordonnees, niveau_scolaire, notes):
         super().__init__(nom, prenom, etat_civil, coordonnees)
-        self.niveau_scolaire = niveau_scolaire
-        self.notes = notes
+        self.__niveau_scolaire = niveau_scolaire
+        self.__notes = notes
 
     def enseigner(self):
-        print(f"{self.nom} suit un cours.")
+        print(f"{self.__nom} suit un cours.")
 
 # Classe Classe
 class Classe:
     def __init__(self, professeur, eleves):
-        self.professeur = professeur
-        self.eleves = eleves
+        self.__professeur = professeur
+        self.__eleves = eleves  # Les élèves sont passés en paramètre
 
     def ajouter_eleve(self, eleve):
-        if len(self.eleves) < 30:
-            self.eleves.append(eleve)
-            print(f"{eleve.nom} a été ajouté à la classe.")
+        if len(self.__eleves) < 30:
+            self.__eleves.append(eleve)
+            print(f"{eleve.__nom} a été ajouté à la classe.")
         else:
             print("La classe est pleine.")
 
