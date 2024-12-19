@@ -1,60 +1,59 @@
-# Classe Habitat
-class Habitat:
-    def __init__(self, type, description):
-        self.type = type
-        self.description = description
-
 # Classe TypeAnimal
 class TypeAnimal:
-    def __init__(self, herbivore, carnivore):
-        self.herbivore = herbivore
-        self.carnivore = carnivore
+    def __init__(self, type_animal):
+        self.__type_animal = type_animal  # "herbivore" ou "carnivore"
 
-# Classe Membre
-class Membre:
-    def __init__(self, type_membre, longueur):
-        self.type = type_membre
-        self.longueur = longueur
+    def __str__(self):
+        return self.__type_animal
 
 # Classe Animal
 class Animal:
-    def __init__(self, nom, type_animal, habitat):
-        self.nom = nom
-        self.type_animal = type_animal
-        self.habitat = habitat
-        self.membres = []  # Liste de membres de l'animal
+    def __init__(self, nom, type_animal):
+        self.__nom = nom
+        self.__type_animal = type_animal  # Instance de TypeAnimal
+        self.__habitats = []  # Liste d'habitats
 
-    def ajouter_membre(self, membre):
-        self.membres.append(membre)
+    def ajouter_habitat(self, habitat):
+        self.__habitats.append(habitat)
 
-    def manger(self):
-        print(f"{self.nom} mange.")
+    def afficher_habitats(self):
+        print(f"{self.__nom} vit dans les habitats suivants:")
+        for habitat in self.__habitats:
+            print(f"- {habitat.__type} : {habitat.__description}")
 
-    def deplacer(self):
-        print(f"{self.nom} se déplace.")
+    def afficher_type(self):
+        print(f"{self.__nom} est un animal de type {self.__type_animal}")
 
 # Sous-classes Lapin et Mouton héritant d'Animal
 class Lapin(Animal):
     def __init__(self, nom, couleur_pelage):
-        super().__init__(nom, "Herbivore", None)  # Par défaut, type "Herbivore"
-        self.couleur_pelage = couleur_pelage
+        # "herbivore" est une instance de TypeAnimal
+        super().__init__(nom, TypeAnimal("Herbivore"))
+        self.__couleur_pelage = couleur_pelage
 
     def creuser_terrier(self):
-        print(f"{self.nom} creuse un terrier.")
+        print(f"{self.__nom} creuse un terrier.")
 
 class Mouton(Animal):
     def __init__(self, nom, longueur_laide):
-        super().__init__(nom, "Herbivore", None)  # Par défaut, type "Herbivore"
-        self.longueur_laide = longueur_laide
+        # "herbivore" est une instance de TypeAnimal
+        super().__init__(nom, TypeAnimal("Herbivore"))
+        self.__longueur_laide = longueur_laide
 
     def produire_laine(self):
-        print(f"{self.nom} produit de la laine.")
+        print(f"{self.__nom} produit de la laine.")
+
+
+
+    
 
 # Création d'exemples
 habitat = Habitat("Forêt", "Un espace verdoyant")
 lapin = Lapin("Léo", "Blanc")
-lapin.ajouter_membre(Membre("Pattes", 20))
+lapin.ajouter_habitat(habitat)
 
 # Affichage d'une action
 lapin.manger()
 lapin.creuser_terrier()
+lapin.afficher_habitats()
+lapin.afficher_type()  # Affiche le type d'animal
