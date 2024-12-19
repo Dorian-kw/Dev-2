@@ -1,22 +1,13 @@
-# Classe Adresse
-class Adresse:
-    def __init__(self, rue, code_postal, ville):
-        self.__rue = rue
-        self.__code_postal = code_postal
-        self.__ville = ville
-
-# Classe Personne
+# Classe Personne 
 class Personne:
-    def __init__(self, nom, prenom, etat_civil, coordonnees):
+    def __init__(self, nom, prenom):
         self.__nom = nom
         self.__prenom = prenom
-        self.__etat_civil = etat_civil
-        self.__coordonnees = coordonnees
 
 # Classe Professeur héritant de Personne
 class Professeur(Personne):
-    def __init__(self, nom, prenom, etat_civil, coordonnees, matiere_enseignee, annees_experience):
-        super().__init__(nom, prenom, etat_civil, coordonnees)
+    def __init__(self, nom, prenom, matiere_enseignee, annees_experience):
+        super().__init__(nom, prenom)
         self.__matiere_enseignee = matiere_enseignee
         self.__annees_experience = annees_experience
 
@@ -25,19 +16,19 @@ class Professeur(Personne):
 
 # Classe Eleve héritant de Personne
 class Eleve(Personne):
-    def __init__(self, nom, prenom, etat_civil, coordonnees, niveau_scolaire, notes):
-        super().__init__(nom, prenom, etat_civil, coordonnees)
+    def __init__(self, nom, prenom, niveau_scolaire, notes):
+        super().__init__(nom, prenom)
         self.__niveau_scolaire = niveau_scolaire
         self.__notes = notes
 
-    def enseigner(self):
-        print(f"{self.__nom} suit un cours.")
+    def afficher_notes(self):
+        print(f"{self.__nom} a les notes suivantes : {self.__notes}")
 
 # Classe Classe
 class Classe:
     def __init__(self, professeur, eleves):
         self.__professeur = professeur
-        self.__eleves = eleves  # Les élèves sont passés en paramètre
+        self.__eleves = eleves  # Les élèves sont passés en paramètre lors de la création de la classe
 
     def ajouter_eleve(self, eleve):
         if len(self.__eleves) < 30:
@@ -46,10 +37,15 @@ class Classe:
         else:
             print("La classe est pleine.")
 
-# Exemple d'utilisation
-adresse = Adresse("123 Rue Exemple", "75000", "Paris")
-prof = Professeur("Mme Dupont", "Clara", "Célibataire", adresse, "Mathématiques", 5)
-eleve = Eleve("Jean", "Michel", "Célibataire", adresse, "Seconde", [15, 16, 17])
+    def afficher_eleves(self):
+        print(f"Liste des élèves de la classe:")
+        for eleve in self.__eleves:
+            print(f"- {eleve.__nom} {eleve.__prenom}")
 
-classe = Classe(prof, [eleve])
-classe.ajouter_eleve(Eleve("Paul", "Durand", "Célibataire", adresse, "Seconde", [18, 19, 20]))
+# Exemple d'utilisation
+prof = Professeur("Mme Dupont", "Clara", "Mathématiques", 5)
+eleve1 = Eleve("Jean", "Michel", "Seconde", [15, 16, 17])
+eleve2 = Eleve("Paul", "Durand", "Seconde", [18, 19, 20])
+
+classe = Classe(prof, [eleve1, eleve2])
+classe.afficher_eleves()
