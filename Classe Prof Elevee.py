@@ -1,55 +1,38 @@
-# Classe Adresse
-class Adresse:
-    def __init__(self, rue, code_postal, ville):
-        self.__rue = rue
-        self.__code_postal = code_postal
-        self.__ville = ville
-
-# Classe Personne
-class Personne:
-    def __init__(self, nom, prenom, etat_civil, coordonnees):
+# Classe Fichier
+class Fichier:
+    def __init__(self, nom, taille, type_fichier, email):
         self.__nom = nom
-        self.__prenom = prenom
-        self.__etat_civil = etat_civil
-        self.__coordonnees = coordonnees
+        self.__taille = taille
+        self.__type = type_fichier
+        self.__email = email  # Le fichier est lié à un email
 
-# Classe Professeur héritant de Personne
-class Professeur(Personne):
-    def __init__(self, nom, prenom, etat_civil, coordonnees, matiere_enseignee, annees_experience):
-        super().__init__(nom, prenom, etat_civil, coordonnees)
-        self.__matiere_enseignee = matiere_enseignee
-        self.__annees_experience = annees_experience
+# Classe Email
+class Email:
+    def __init__(self, titre, texte, expediteur, destination):
+        self.__titre = titre
+        self.__texte = texte
+        self.__expediteur = expediteur
+        self.__destination = destination
+        self.__fichiers_joints = [] # Liste prise dans la classe Fichier
 
-    def enseigner(self):
-        print(f"{self.__nom} enseigne {self.__matiere_enseignee}.")
-
-# Classe Eleve héritant de Personne
-class Eleve(Personne):
-    def __init__(self, nom, prenom, etat_civil, coordonnees, niveau_scolaire, notes):
-        super().__init__(nom, prenom, etat_civil, coordonnees)
-        self.__niveau_scolaire = niveau_scolaire
-        self.__notes = notes
-
-    def enseigner(self):
-        print(f"{self.__nom} suit un cours.")
-
-# Classe Classe
-class Classe:
-    def __init__(self, professeur, eleves):
-        self.__professeur = professeur
-        self.__eleves = eleves  # Les élèves sont passés en paramètre
-
-    def ajouter_eleve(self, eleve):
-        if len(self.__eleves) < 30:
-            self.__eleves.append(eleve)
-            print(f"{eleve.__nom} a été ajouté à la classe.")
+    def ajouter_fichier(self, fichier):
+        # Le fichier est ajouté à l'email
+        if fichier.__email == self:  # Assure que le fichier appartient à cet email
+            self.__fichiers_joints.append(fichier)
         else:
-            print("La classe est pleine.")
+            print("Le fichier doit appartenir à cet email.")
+
+    def envoyer(self):
+        print(f"Envoi de l'email de {self.__expediteur} à {self.__destination}.")
+        print("Fichiers joints :")
+        for fichier in self.__fichiers_joints:
+            print(f"- {fichier.__nom} ({fichier.__taille} ko)")
 
 # Exemple d'utilisation
-adresse = Adresse("123 Rue Exemple", "75000", "Paris")
-prof = Professeur("Mme Dupont", "Clara", "Célibataire", adresse, "Mathématiques", 5)
-eleve = Eleve("Jean", "Michel", "Célibataire", adresse, "Seconde", [15, 16, 17])
+email = Email("Sujet", "Corps du message", "expediteur@example.com", "destinataire@example.com")
+fichier1 = Fichier("document.pdf", 200, "pdf", email)  # Le fichier est rattaché à l'email
+fichier2 = Fichier("image.jpg", 500, "jpg", email)
 
-classe = Classe(prof, [eleve])
-classe.ajouter_eleve(Eleve("Paul", "Durand", "Célibataire", adresse, "Seconde", [18, 19, 20]))
+email.ajouter_fichier(fichier1)
+email.ajouter_fichier(fichier2)
+email.envoyer()
